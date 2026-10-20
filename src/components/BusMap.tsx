@@ -62,7 +62,7 @@ const busIcon = L.divIcon({
 export function BusMap() {
   const [location, setLocation] = useState({
     latitude: 15.7101754,
-    longitude: 121.1024842,
+    longitude: -121.1024842,
   });
   const [lastUpdated, setLastUpdated] = useState(new Date());
   useEffect(() => {

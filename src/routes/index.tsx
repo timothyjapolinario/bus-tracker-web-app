@@ -1,9 +1,11 @@
 import { lazy, Suspense } from "react";
 import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 
-const BusMap = lazy(() => import("../components/BusMap").then((module) => ({
-  default: module.BusMap,
-})));
+const BusMap = lazy(() =>
+  import("../components/BusMap").then((module) => ({
+    default: module.BusMap,
+  })),
+);
 
 export const Route = createFileRoute("/")({
   component: HomePage,
