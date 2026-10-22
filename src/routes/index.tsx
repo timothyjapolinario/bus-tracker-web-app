@@ -19,15 +19,11 @@ function HomePage() {
           <h1 className="text-xl font-bold text-slate-900">BusTracker</h1>
           <p className="text-sm text-slate-500">Live bus tracking</p>
         </div>
-
-        <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
-          Demo
-        </span>
       </header>
 
       <section className="z-[1000] bg-white px-5 py-3 shadow-sm">
         <h2 className="font-semibold text-slate-900">Bus 001</h2>
-        <p className="text-sm text-slate-500">Route A · Simulated location</p>
+        <p className="text-sm text-slate-500">Route A · Rizal - Cabanatuan</p>
       </section>
 
       <section className="min-h-0 flex-1">

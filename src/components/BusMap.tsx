@@ -7,26 +7,6 @@ type BusLocation = {
   latitude: number;
   longitude: number;
 };
-function getMyLocation() {
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      console.log({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        accuracy: position.coords.accuracy,
-      });
-      console.log(
-        "Browser coordinates:",
-        position.coords.latitude,
-        position.coords.longitude,
-      );
-    },
-    (error) => {
-      console.error("Could not get location:", error.message);
-    },
-    { enableHighAccuracy: true },
-  );
-}
 
 function FollowBus({ location }: { location: BusLocation }) {
   const map = useMap();
@@ -102,7 +82,6 @@ export function BusMap() {
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
-      <button onClick={getMyLocation}>Check my location</button>
       <p>Last updated: {lastUpdated.toLocaleTimeString()}</p>
       <MapContainer
         center={[location.latitude, location.longitude]}
