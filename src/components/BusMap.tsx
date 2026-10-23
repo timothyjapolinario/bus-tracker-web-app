@@ -72,7 +72,7 @@ export function BusMap() {
     };
 
     void fetchLocation();
-    const interval = setInterval(() => void fetchLocation(), 3000);
+    const interval = setInterval(() => void fetchLocation(), 1000);
 
     return () => {
       active = false;
