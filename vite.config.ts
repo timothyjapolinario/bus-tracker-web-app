@@ -20,7 +20,7 @@ const config = defineConfig({
     }),
     viteReact(),
   ],
-  base: "/bus-tracker-web-app/",
+  base: "/",
 });
 
 export default config;
