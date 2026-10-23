@@ -8,12 +8,29 @@ type BusLocation = {
   longitude: number;
 };
 
-function FollowBus({ location }: { location: BusLocation }) {
+function FollowBus({
+  location,
+  enabled,
+  onUserDrag,
+}: {
+  location: BusLocation;
+  enabled: boolean;
+  onUserDrag: () => void;
+}) {
   const map = useMap();
 
   useEffect(() => {
-    map.panTo([location.latitude, location.longitude]);
-  }, [map, location]);
+    if (enabled) {
+      map.panTo([location.latitude, location.longitude]);
+    }
+  }, [enabled, location, map]);
+
+  useEffect(() => {
+    map.on("dragstart", onUserDrag);
+    return () => {
+      map.off("dragstart", onUserDrag);
+    };
+  }, [map, onUserDrag]);
 
   return null;
 }
@@ -45,6 +62,7 @@ export function BusMap() {
     longitude: -121.1024842,
   });
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [isFollowing, setIsFollowing] = useState(true);
   useEffect(() => {
     let active = true;
 
@@ -81,8 +99,48 @@ export function BusMap() {
   }, []);
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
-      <p>Last updated: {lastUpdated.toLocaleTimeString()}</p>
+    <div style={{ height: "100%", width: "100%", position: "relative" }}>
+      <div
+        style={{
+          position: "absolute",
+          top: 12,
+          left: 12,
+          zIndex: 1000,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+        }}
+      >
+        <button
+          type="button"
+          onClick={() => setIsFollowing(true)}
+          disabled={isFollowing}
+          style={{
+            border: 0,
+            borderRadius: 6,
+            padding: "9px 12px",
+            background: isFollowing ? "#1d4ed8" : "white",
+            color: isFollowing ? "white" : "#1e293b",
+            boxShadow: "0 1px 5px #0004",
+            cursor: isFollowing ? "default" : "pointer",
+            fontWeight: 600,
+          }}
+        >
+          {isFollowing ? "Following bus" : "Center on bus"}
+        </button>
+        <span
+          style={{
+            borderRadius: 6,
+            padding: "8px 10px",
+            background: "white",
+            boxShadow: "0 1px 5px #0004",
+            color: "#334155",
+            fontSize: 13,
+          }}
+        >
+          Updated {lastUpdated.toLocaleTimeString()}
+        </span>
+      </div>
       <MapContainer
         center={[location.latitude, location.longitude]}
         zoom={45}
@@ -98,7 +156,11 @@ export function BusMap() {
           icon={busIcon}
         />
 
-        <FollowBus location={location} />
+        <FollowBus
+          location={location}
+          enabled={isFollowing}
+          onUserDrag={() => setIsFollowing(false)}
+        />
       </MapContainer>
     </div>
   );
