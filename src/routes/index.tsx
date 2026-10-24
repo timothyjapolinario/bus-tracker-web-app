@@ -1,6 +1,8 @@
 import { lazy, Suspense } from "react";
 import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 
+import appLogo from "../../BusTracker Map Signal Icon.png";
+
 const BusMap = lazy(() =>
   import("../components/BusMap").then((module) => ({
     default: module.BusMap,
@@ -15,9 +17,16 @@ function HomePage() {
   return (
     <main className="flex h-screen flex-col bg-slate-50">
       <header className="z-[1000] flex items-center justify-between bg-white px-5 py-4 shadow-sm">
-        <div>
-          <h1 className="text-xl font-bold text-slate-900">BusTracker</h1>
-          <p className="text-sm text-slate-500">Live bus tracking</p>
+        <div className="flex items-center gap-3">
+          <img
+            src={appLogo}
+            alt="BusTracker logo"
+            className="h-14 w-14 shrink-0 object-contain"
+          />
+          <div>
+            <h1 className="text-xl font-bold text-slate-900">BusTracker</h1>
+            <p className="text-sm text-slate-500">Live bus tracking</p>
+          </div>
         </div>
       </header>
 
